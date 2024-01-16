@@ -7,8 +7,7 @@ from domain.data_fetch import download_articles
 
 def get_save_articles(refresh=False):
     if 'articles' not in st.session_state or 'article_links' not in st.session_state or refresh==True:
-        print("article collection started")
-        st.session_state.articles, st.session_state.article_links = download_articles(5)
+        st.session_state.articles, st.session_state.article_links = download_articles()
     return st.session_state.articles, st.session_state.article_links
 
 def main():

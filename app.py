@@ -1,5 +1,5 @@
 import streamlit as st
-from domain.model import load_model, encode_articles
+from domain.model import load_model, encode_article_data
 from domain.search import search_articles
 from components.search_bar import display_search_bar
 from components.article_display import display_article_results
@@ -15,16 +15,16 @@ def main():
     
     articles_dict, article_links = get_save_articles()
     model = load_model()
-    encoded_titles = encode_articles(model, articles_dict)
+    encoded_articles = encode_article_data(model, articles_dict)
 
     if st.button("Refresh Articles"):
         articles_dict, article_links = get_save_articles(refresh=True)
-        encoded_titles = encode_articles(model, articles_dict)
+        encoded_articles = encode_article_data(model, articles_dict)
 
     query = display_search_bar()
 
     if query:
-        results = search_articles(query, encoded_titles, articles_dict, model)
+        results = search_articles(query, encoded_articles, articles_dict, model)
         display_article_results(results, article_links)
 
 if __name__ == "__main__":

@@ -2,9 +2,9 @@ from sentence_transformers import util
 import numpy as np
 
 # Function to search for the most relevant articles by title
-def search_articles(query, encoded_titles, articles_dict, model, top_k=5):
+def search_articles(query, encoded_articles, articles_dict, model, top_k=5):
     query_embedding = model.encode(query, convert_to_tensor=True)
-    cos_scores = util.pytorch_cos_sim(query_embedding, encoded_titles)[0]
+    cos_scores = util.pytorch_cos_sim(query_embedding, encoded_articles)[0]
     cos_scores = cos_scores.cpu()
 
     top_results = np.argpartition(-cos_scores, range(top_k))[0:top_k]
